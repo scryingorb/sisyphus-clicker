@@ -45,3 +45,23 @@ jobs:
       - name: Deploy production build
         id: deployment
         uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+        env:
+          ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
+      - run: npx playwright install --with-deps chromium
+      - name: Verify the public website
+        run: node scripts/pages-live-smoke.mjs
+        env:
+          LIVE_SITE_URL: ${{ steps.deployment.outputs.page_url }}
+          EXPECTED_REVISION: ${{ github.sha }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pages-live-check
+          path: test-results/pages-live.png
+          if-no-files-found: ignore
