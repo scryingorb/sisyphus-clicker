@@ -1,5 +1,7 @@
-import { pushState, finishClimb, newState, PUSHES_PER_CLIMB } from './state.js';
-import { advanceBoulder, MAX_FRAME_DELTA } from './physics.js';
+import { newState } from './state.js';
+import { MAX_FRAME_DELTA } from './physics.js';
+import { advanceProgress } from './simulation.js';
+import { BALANCE, mountain } from './progression.js';
 export const FIXED_STEP = 1 / 240;
 export const RETURN_DURATION = 2.9;
 // One simulation clock drives physics, effects and the summit sequence.
@@ -10,7 +12,16 @@ export class GameSession {
   }
   pause() { this.paused = true; this.accumulator = 0; }
   resume() { this.paused = false; this.accumulator = 0; }
-  push() { return !this.paused && pushState(this.state); }
+  push() {
+    const s=this.state;
+    if(this.paused||s.isResetting||s.clickCooldown>1e-9) return false;
+    const scale=100/mountain(s).length;
+    s.totalPushes++; s.timeSincePush=0;
+    s.boulderVelocity=Math.min(12,s.boulderVelocity+BALANCE.manualImpulse*(1+.25*s.upgrades[0])*(1+.2*s.divine[0])*scale*(s.workers.some(Boolean)?BALANCE.manualWithWorkers:1));
+    s.clickCooldown=BALANCE.clickInterval;
+    if(!s.boost && !s.defianceCooldown && ++s.defiance>=BALANCE.defianceClicks) { s.defiance=0; s.boost=BALANCE.defianceDuration; s.defianceCooldown=BALANCE.defianceCooldown; }
+    return true;
+  }
   restart() {
     Object.assign(this.state, newState());
     this.time = 0; this.accumulator = 0; this.resetElapsed = null; this.pause();
@@ -22,15 +33,8 @@ export class GameSession {
     while (this.accumulator + 1e-10 >= FIXED_STEP) {
       this.accumulator = Math.max(0, this.accumulator - FIXED_STEP);
       this.time += FIXED_STEP;
-      if (this.resetElapsed !== null) {
-        this.resetElapsed += FIXED_STEP;
-        if (this.resetElapsed >= RETURN_DURATION) {
-          finishClimb(this.state); this.resetElapsed = null; completed = true;
-        }
-      } else {
-        advanceBoulder(this.state, FIXED_STEP, PUSHES_PER_CLIMB);
-        if (this.state.isResetting) this.resetElapsed = 0;
-      }
+      if(advanceProgress(this.state,FIXED_STEP)) completed=true;
+      this.resetElapsed=this.state.isResetting?RETURN_DURATION-this.state.returnRemaining:null;
     }
     return completed;
   }

@@ -1,6 +1,6 @@
 // Synthesized locally: no audio downloads or network required.
 export class BoulderAudio {
-  constructor(settings) { this.settings = settings; this.context = null; }
+  constructor(settings) { this.settings = settings; this.context = null; this.voices=new Set(); this.lastCue=-Infinity; }
   unlock() {
     if (!this.context) {
       const Audio = window.AudioContext || window.webkitAudioContext;
@@ -21,16 +21,32 @@ export class BoulderAudio {
   update(velocity, paused) {
     if (!this.context) return;
     const ctx = this.context, speed = Math.min(1, Math.abs(velocity) / 12);
+    if(paused||this.settings.muted)this.silence();
     this.master.gain.setTargetAtTime(this.settings.muted ? 0 : this.settings.volume, ctx.currentTime, .03);
     this.roll.gain.setTargetAtTime(paused ? 0 : speed * .2, ctx.currentTime, .07);
     this.filter.frequency.setTargetAtTime(140 + speed * 450, ctx.currentTime, .1);
   }
   push() {
-    if (!this.context || this.settings.muted) return;
+    if (!this.context || this.settings.muted || this.voices.size>=6) return;
     const ctx = this.context, osc = ctx.createOscillator(), gain = ctx.createGain();
     osc.type = 'sine'; osc.frequency.setValueAtTime(105, ctx.currentTime);
     osc.frequency.exponentialRampToValueAtTime(38, ctx.currentTime + .13);
     gain.gain.setValueAtTime(.18, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + .16);
-    osc.connect(gain); gain.connect(this.master); osc.start(); osc.stop(ctx.currentTime + .17);
+    this.track(osc,gain); osc.start(); osc.stop(ctx.currentTime + .17);
+  }
+  track(osc,gain){osc.connect(gain);gain.connect(this.master);this.voices.add(osc);osc.onended=()=>{this.voices.delete(osc);osc.disconnect();gain.disconnect();};}
+  silence(){for(const voice of this.voices){try{voice.stop();}catch{/* Already ended. */}}this.voices.clear();}
+  cue(kind){
+    if(!this.context||this.settings.muted||this.context.currentTime-this.lastCue<.1)return;
+    this.lastCue=this.context.currentTime;
+    const notes={purchase:[330,440],milestone:[330,440,660],defiance:[196,392,588],expired:[294],summit:[392,494,587],prestige:[196,294,440]}[kind];
+    if(!notes)return;
+    for(const [i,note] of notes.entries()){
+      if(this.voices.size>=6)break;
+      const ctx=this.context,osc=ctx.createOscillator(),gain=ctx.createGain(),start=ctx.currentTime+i*.055;
+      osc.type='sine';osc.frequency.setValueAtTime(note,start);
+      gain.gain.setValueAtTime(0,ctx.currentTime);gain.gain.setValueAtTime(.001,start);gain.gain.linearRampToValueAtTime(kind==='prestige'?.12:.075,start+.015);gain.gain.exponentialRampToValueAtTime(.001,start+(kind==='prestige'?.65:.24));
+      this.track(osc,gain);osc.start(start);osc.stop(start+(kind==='prestige'?.7:.28));
+    }
   }
 }

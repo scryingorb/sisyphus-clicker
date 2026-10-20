@@ -5,12 +5,12 @@ import path from 'node:path';
 
 await mkdir('test-results',{recursive:true});
 const profile=path.join(await mkdtemp(path.resolve('test-results/profile-')), 'first-launch-data');
-const executable=path.resolve(process.env.SISYPHUS_EXE || 'release/win-unpacked/Sisyphus Clicker.exe');
+const executable=path.resolve(process.env.SISYPHUS_EXE || (process.env.SISYPHUS_SOURCE ? 'node_modules/electron/dist/electron.exe' : 'release/win-unpacked/Sisyphus Clicker.exe'));
 const env={...process.env,SISYPHUS_TEST_DATA:profile};delete env.ELECTRON_RUN_AS_NODE;
 let app, page;
 const errors=[],remote=[];
 async function launch() {
-  app=await electron.launch({executablePath:executable,args:[],env,timeout:30000});
+  app=await electron.launch({executablePath:executable,args:process.env.SISYPHUS_SOURCE?['.']:[],env,timeout:30000});
   page=await app.firstWindow();
   page.on('pageerror',e=>errors.push(e.message));
   page.on('request',r=>{if(/^https?:/.test(r.url()))remote.push(r.url());});
@@ -28,7 +28,7 @@ try {
   await launch();
   assert.equal(await page.locator('#pause-dialog').evaluate(d=>d.open),true);
   await page.locator('#resume').click();
-  await page.locator('#push').click();await page.keyboard.press('Space');await page.mouse.click(660,400);
+  await page.locator('#push').click();await page.waitForTimeout(150);await page.keyboard.press('Space');await page.waitForTimeout(150);await page.mouse.click(660,400);
   assert.equal(await page.locator('#total').textContent(),'3');
   await page.locator('#pause').click();const frozen=await snapshot();
   await page.waitForTimeout(650);assert.deepEqual(await snapshot(),frozen);
@@ -41,7 +41,7 @@ try {
   await page.locator('#resume').click();await page.locator('#push').click();await page.locator('#pause').click();
   const braking=await snapshot();assert.ok(braking.boulderVelocity<0 && braking.boulderVelocity>rolling.boulderVelocity);
   await page.locator('#resume').click();
-  await page.evaluate(()=>{for(let i=0;i<4;i++)document.querySelector('#push').click();});
+  for(let i=0;i<4;i++){await page.waitForTimeout(150);await page.locator('#push').click();}
   await page.locator('#pause').click();const uphill=await snapshot();assert.ok(uphill.boulderVelocity>0);
   await page.locator('#resume').click();
   await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].minimize());

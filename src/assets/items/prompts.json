@@ -1,0 +1,61 @@
+{
+  "generator": "OpenAI built-in image_gen, transparent background",
+  "preparation": "Nearest-neighbor resampling to 64x64 RGBA for 48px shop portraits.",
+  "items": [
+    {
+      "name": "calloused-hands",
+      "prompt": "Use case: stylized-concept. Original single game inventory item artwork for Sisyphus Clicker, ancient Greek underworld. Transparent background, square canvas, centered full silhouette and 12% clear padding. Pixel art on a strict 32x32 logical grid, large crisp square clusters, hard stepped edges, NO fine detail, NO antialiasing, no gradients, no letters or numbers, no border or scenery. Must be immediately recognizable at 48 pixels. Muted charcoal #142020, midnight #172330, bronze #b18750, weathered gold #dab780, parchment #bcb9a0, restrained pale spectral blue #a8d9df, ember orange #e99a48. Ancient materials, moody restrained light, original art not borrowed symbols. Subject: One clenched stone fist wearing a heavy bronze knuckle guard. Broad angular fist silhouette pointing upward.",
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a14b9e-aac8-7780-8f63-1d40e8aa4563\\exec-0f3f9c37-abc3-4899-8eb9-9acf9e3e8b88.png"
+    },
+    {
+      "name": "bronze-cleats",
+      "prompt": "Use case: stylized-concept. Original single game inventory item artwork for Sisyphus Clicker, ancient Greek underworld. Transparent background, square canvas, centered full silhouette and 12% clear padding. Pixel art on a strict 32x32 logical grid, large crisp square clusters, hard stepped edges, NO fine detail, NO antialiasing, no gradients, no letters or numbers, no border or scenery. Must be immediately recognizable at 48 pixels. Muted charcoal #142020, midnight #172330, bronze #b18750, weathered gold #dab780, parchment #bcb9a0, restrained pale spectral blue #a8d9df, ember orange #e99a48. Ancient materials, moody restrained light, original art not borrowed symbols. Subject: A pair of ancient Greek leather sandals with prominent bronze grip studs on the soles, one side view and one angled underside. Clear sandal silhouette.",
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a14b9e-aac8-7780-8f63-1d40e8aa4563\\exec-5c1e74e6-6517-477e-942a-8b6319f00aa7.png"
+    },
+    {
+      "name": "underworld-overseer",
+      "prompt": "Use case: stylized-concept. Original single game inventory item artwork for Sisyphus Clicker, ancient Greek underworld. Transparent background, square canvas, centered full silhouette and 12% clear padding. Pixel art on a strict 32x32 logical grid, large crisp square clusters, hard stepped edges, NO fine detail, NO antialiasing, no gradients, no letters or numbers, no border or scenery. Must be immediately recognizable at 48 pixels. Muted charcoal #142020, midnight #172330, bronze #b18750, weathered gold #dab780, parchment #bcb9a0, restrained pale spectral blue #a8d9df, ember orange #e99a48. Ancient materials, moody restrained light, original art not borrowed symbols. Subject: An iron shepherd's crook holding one hanging spectral lantern with pale blue flame. Tall hooked silhouette, bronze handle details.",
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a14b9e-aac8-7780-8f63-1d40e8aa4563\\exec-1eb4423f-f934-43db-bae9-60bd231030e6.png"
+    },
+    {
+      "name": "stygian-bindings",
+      "prompt": "Use case: stylized-concept. Original single game inventory item artwork for Sisyphus Clicker, ancient Greek underworld. Transparent background, square canvas, centered full silhouette and 12% clear padding. Pixel art on a strict 32x32 logical grid, large crisp square clusters, hard stepped edges, NO fine detail, NO antialiasing, no gradients, no letters or numbers, no border or scenery. Must be immediately recognizable at 48 pixels. Muted charcoal #142020, midnight #172330, bronze #b18750, weathered gold #dab780, parchment #bcb9a0, restrained pale spectral blue #a8d9df, ember orange #e99a48. Ancient materials, moody restrained light, original art not borrowed symbols. Subject: A coiled glowing spectral rope with one large bronze binding ring and three trailing wisps, compact circular silhouette.",
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a14b9e-aac8-7780-8f63-1d40e8aa4563\\exec-811e66e1-87fb-4ff2-8cfe-a51c5e3bce24.png"
+    },
+    {
+      "name": "hauling-discipline",
+      "prompt": "Use case: stylized-concept. Original single game inventory item artwork for Sisyphus Clicker, ancient Greek underworld. Transparent background, square canvas, centered full silhouette and 12% clear padding. Pixel art on a strict 32x32 logical grid, large crisp square clusters, hard stepped edges, NO fine detail, NO antialiasing, no gradients, no letters or numbers, no border or scenery. Must be immediately recognizable at 48 pixels. Muted charcoal #142020, midnight #172330, bronze #b18750, weathered gold #dab780, parchment #bcb9a0, restrained pale spectral blue #a8d9df, ember orange #e99a48. Ancient materials, moody restrained light, original art not borrowed symbols. Subject: A crossed wooden hauling lever and rugged iron pulley block with a short chain, clear diagonal X-shaped tool arrangement.",
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a14b9e-aac8-7780-8f63-1d40e8aa4563\\exec-11ac1d62-8c46-44f2-a507-b75be0106ca7.png"
+    },
+    {
+      "name": "precision-gearing",
+      "prompt": "Use case: stylized-concept. Original single game inventory item artwork for Sisyphus Clicker, ancient Greek underworld. Transparent background, square canvas, centered full silhouette and 12% clear padding. Pixel art on a strict 32x32 logical grid, large crisp square clusters, hard stepped edges, NO fine detail, NO antialiasing, no gradients, no letters or numbers, no border or scenery. Must be immediately recognizable at 48 pixels. Muted charcoal #142020, midnight #172330, bronze #b18750, weathered gold #dab780, parchment #bcb9a0, restrained pale spectral blue #a8d9df, ember orange #e99a48. Ancient materials, moody restrained light, original art not borrowed symbols. Subject: Two interlocking ancient bronze toothed gears, one large and one small, with an emerald patina and stout central spindle. Clear gear silhouette.",
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a14b9e-aac8-7780-8f63-1d40e8aa4563\\exec-a2bfb360-9398-463e-80ba-765bbe456837.png"
+    },
+    {
+      "name": "divine-bellows",
+      "prompt": "Use case: stylized-concept. Original single game inventory item artwork for Sisyphus Clicker, ancient Greek underworld. Transparent background, square canvas, centered full silhouette and 12% clear padding. Pixel art on a strict 32x32 logical grid, large crisp square clusters, hard stepped edges, NO fine detail, NO antialiasing, no gradients, no letters or numbers, no border or scenery. Must be immediately recognizable at 48 pixels. Muted charcoal #142020, midnight #172330, bronze #b18750, weathered gold #dab780, parchment #bcb9a0, restrained pale spectral blue #a8d9df, ember orange #e99a48. Ancient materials, moody restrained light, original art not borrowed symbols. Subject: A Greek forge bellows, folded leather body between bronze plates, long tapered nozzle, ember glow at the nozzle. Broad triangular silhouette.",
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a14b9e-aac8-7780-8f63-1d40e8aa4563\\exec-832b64aa-384e-4765-85c4-4391f8289d7f.png"
+    },
+    {
+      "name": "titan-grip",
+      "prompt": "Use case: stylized-concept. Original single game inventory item artwork for Sisyphus Clicker, ancient Greek underworld. Transparent background, square canvas, centered full silhouette and 12% clear padding. Pixel art on a strict 32x32 logical grid, large crisp square clusters, hard stepped edges, NO fine detail, NO antialiasing, no gradients, no letters or numbers, no border or scenery. Must be immediately recognizable at 48 pixels. Muted charcoal #142020, midnight #172330, bronze #b18750, weathered gold #dab780, parchment #bcb9a0, restrained pale spectral blue #a8d9df, ember orange #e99a48. Ancient materials, moody restrained light, original art not borrowed symbols. Subject: A massive ancient titan's engraved bronze forearm brace with an open circular cuff and geometric Greek key engraving. Horizontal armored sleeve silhouette, no fist.",
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a14b9e-aac8-7780-8f63-1d40e8aa4563\\exec-9bedac86-1cd3-424e-8283-c6fcd98086ac.png"
+    },
+    {
+      "name": "eternal-workforce",
+      "prompt": "Use case: stylized-concept. Original single game inventory item artwork for Sisyphus Clicker, ancient Greek underworld. Transparent background, square canvas, centered full silhouette and 12% clear padding. Pixel art on a strict 32x32 logical grid, large crisp square clusters, hard stepped edges, NO fine detail, NO antialiasing, no gradients, no letters or numbers, no border or scenery. Must be immediately recognizable at 48 pixels. Muted charcoal #142020, midnight #172330, bronze #b18750, weathered gold #dab780, parchment #bcb9a0, restrained pale spectral blue #a8d9df, ember orange #e99a48. Ancient materials, moody restrained light, original art not borrowed symbols. Subject: A small standing Greek temple-shaped relic with three bronze columns and a radiant pale blue soul flame suspended between them, architectural silhouette.",
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a14b9e-aac8-7780-8f63-1d40e8aa4563\\exec-c519023c-2567-46ba-bc61-561e6c4b28be.png"
+    },
+    {
+      "name": "charons-bargain",
+      "prompt": "Use case: stylized-concept. Original single game inventory item artwork for Sisyphus Clicker, ancient Greek underworld. Transparent background, square canvas, centered full silhouette and 12% clear padding. Pixel art on a strict 32x32 logical grid, large crisp square clusters, hard stepped edges, NO fine detail, NO antialiasing, no gradients, no letters or numbers, no border or scenery. Must be immediately recognizable at 48 pixels. Muted charcoal #142020, midnight #172330, bronze #b18750, weathered gold #dab780, parchment #bcb9a0, restrained pale spectral blue #a8d9df, ember orange #e99a48. Ancient materials, moody restrained light, original art not borrowed symbols. Subject: A bronze ferryman's shallow offering bowl holding three ancient Obol coins, with one upright engraved coin catching muted gold light. Low wide bowl silhouette.",
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a14b9e-aac8-7780-8f63-1d40e8aa4563\\exec-f415a7aa-85fc-4de3-9a19-9ecb2cb3ccd1.png"
+    },
+    {
+      "name": "unbroken-defiance",
+      "prompt": "Use case: stylized-concept. Original single game inventory item artwork for Sisyphus Clicker, ancient Greek underworld. Transparent background, square canvas, centered full silhouette and 12% clear padding. Pixel art on a strict 32x32 logical grid, large crisp square clusters, hard stepped edges, NO fine detail, NO antialiasing, no gradients, no letters or numbers, no border or scenery. Must be immediately recognizable at 48 pixels. Muted charcoal #142020, midnight #172330, bronze #b18750, weathered gold #dab780, parchment #bcb9a0, restrained pale spectral blue #a8d9df, ember orange #e99a48. Ancient materials, moody restrained light, original art not borrowed symbols. Subject: A broken bronze laurel crown enclosing a single rising ember-orange flame, defiant angular wreath silhouette. No other objects.",
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a14b9e-aac8-7780-8f63-1d40e8aa4563\\exec-44fcf32e-a9c3-44e4-9996-de0105bbf1ec.png"
+    }
+  ]
+}
