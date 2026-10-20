@@ -1,9 +1,9 @@
-Windows desktop release of Sisyphus Clicker 1.2.0.
+Windows desktop release of Sisyphus Clicker 1.2.1.
 
 ### Downloads
 
-- **Sisyphus-Clicker-Setup-1.2.0.exe:** Windows x64 installer with desktop and Start menu shortcuts.
-- **Sisyphus-Clicker-Portable-1.2.0.exe:** run directly without installation. Initial extraction may take a few seconds.
+- **Sisyphus-Clicker-Setup-1.2.1.exe:** Windows x64 installer with desktop and Start menu shortcuts.
+- **Sisyphus-Clicker-Portable-1.2.1.exe:** run directly without installation. Initial extraction may take a few seconds.
 - **SHA256SUMS.txt:** checksums for both downloads.
 
 Play offline without Node.js, VS Code, a terminal or a separate server. The executables are unsigned, so Windows may display an unknown-publisher warning. Updates are manual: download and run the new installer. Existing per-user saves are preserved; export a backup through Settings if desired.

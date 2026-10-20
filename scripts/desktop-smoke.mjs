@@ -72,9 +72,9 @@ try {
   await page.locator('#pause').click();await page.waitForTimeout(700);assert.equal(await page.locator('#climbs').textContent(),'2');
   await page.locator('#resume').click();await page.waitForTimeout(3000);
   assert.equal(await page.locator('#climbs').textContent(),'3');assert.equal(await page.locator('#progress').textContent(),'0');
-  await page.locator('#fullscreen').click();await page.waitForTimeout(200);
+  await page.keyboard.press('F11');await page.waitForTimeout(200);
   assert.equal(await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].isFullScreen()),true);
-  await page.locator('#fullscreen').click();
+  await page.keyboard.press('F11');
   await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setSize(800,620));
   await page.waitForTimeout(150);
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
