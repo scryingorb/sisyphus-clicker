@@ -20,7 +20,7 @@ An atmospheric pixel-art game about an endless task. Push a giant boulder up a m
 
 ![Sisyphus Clicker current source UI preview](docs/screenshots/main-interface.png)
 
-UI preview regenerated from the current source build at 1280 x 800, with dialogs closed. Captured in Chrome using the bundled layout, fonts, artwork and canvas renderer; the published Windows executables predate this progression update.
+UI preview regenerated from the current source build at 1280 x 800, with dialogs closed. Captured in Chrome using the bundled layout, fonts, artwork and canvas renderer.
 
 ## Technologies
 
@@ -28,15 +28,15 @@ JavaScript, Canvas, Vite, Electron, electron-builder, browser local storage, and
 
 ## Getting Started
 
-Download the [Windows x64 version 1.1.0 release](https://github.com/scryingorb/sisyphus-clicker/releases/tag/v1.1.0). These executables predate the current source progression update.
+Download the [Windows x64 version 1.2.2 release](https://github.com/scryingorb/sisyphus-clicker/releases/tag/v1.2.2). This release includes the worker artwork, progression and mountain-balance updates.
 
 Windows 10/11, x64. No Node.js, VS Code, terminal, server or internet connection is needed to play.
 
-- Install: run `release/Sisyphus-Clicker-Setup-1.1.0.exe`. The installer allows a per-user installation directory and creates Start menu/desktop shortcuts.
-- Portable: run `release/Sisyphus-Clicker-Portable-1.1.0.exe` directly. It extracts the bundled runtime temporarily; first launch may take a few seconds. It does not install the game.
+- Install: run `release/Sisyphus-Clicker-Setup-1.2.2.exe`. The installer allows a per-user installation directory and creates Start menu/desktop shortcuts.
+- Portable: run `release/Sisyphus-Clicker-Portable-1.2.2.exe` directly. It extracts the bundled runtime temporarily; first launch may take a few seconds. It does not install the game.
 - Unpacked: run `release/win-unpacked/Sisyphus Clicker.exe`. Keep the entire `win-unpacked` folder together, including its DLLs and resources.
 
-The published installer and portable EXE are unsigned and have no auto-update. The `release/` paths also identify local packaging outputs. Windows may show an unknown-publisher warning. Uninstalling keeps saves. The installer and portable application use the same per-user save directory.
+The published installer and portable EXE are unsigned and have no auto-update. To update, download and run the new installer; the per-user save directory stays the same. The `release/` paths also identify local packaging outputs. Windows may show an unknown-publisher warning. Uninstalling keeps saves. The installer and portable application use the same per-user save directory.
 
 ### Build or run from source
 
@@ -98,7 +98,7 @@ Defiance charge, boost time and cooldown are saved. Live pause freezes all simul
 
 Offline settlement runs the same resistance and reward rules in bounded 50 ms steps (at most 576,000 steps). Live physics uses 1/240-second steps. Offline settlement commits before rewards are exposed; failed writes do not award offline progress. The saved timestamp never moves backward. Local saves cannot prevent deliberate save-file editing or system-clock manipulation; ordinary repeated loading cannot claim the same elapsed time twice.
 
-Desktop saves remain under `%APPDATA%\Sisyphus Clicker\Local Storage`. Browser saves remain tied to their origin. Existing packaged executables are older builds; run/build from source to use this update. No release artifacts were repackaged or published.
+Desktop saves remain under `%APPDATA%\Sisyphus Clicker\Local Storage`. Browser saves remain tied to their origin. Version 1.2.2 packages these changes into the installer and portable downloads.
 
 ## Validation
 
@@ -112,7 +112,7 @@ Desktop tests require a local Windows build. They use separate temporary profile
 
 The focused tests cover acceleration, multi-click braking, normal/slow/fast clicking, bottom/summit limits, 30/60/120/144 FPS, capped stalls, position-based rotation and character alignment, pause/resume, summit pause and recovery, resets, save compatibility and exact counters. Desktop automation checks offline loading, input, minimize/focus pause, settings, save transfer/relaunch, restart confirmation, fullscreen and 800 × 620 layout.
 
-The current source passes 46 unit tests, pacing assertions, the production build and four browser smoke suites. Native Electron validation is blocked by the runtime-directory permissions issue described below. Earlier desktop/portable reports apply to the older build and do not validate this progression update; the current source has not been repackaged into a release.
+The current source passes 46 unit tests, pacing assertions, the production build and four browser smoke suites. The [version 1.2.2 release workflow](https://github.com/scryingorb/sisyphus-clicker/actions/runs/39389235147) passed both the packaged Windows game and portable launcher checks offline before publishing. Installing through the setup wizard itself is not tested. Validation reports and screenshots are available in the release workflow artifacts.
 
 ## Physics tuning and architecture
 
@@ -157,7 +157,7 @@ The first five relaxed-play climbs measure about 46s, 1m13s, 2m30s, 4m56s and 5m
 
 Run `npm.cmd test`, `node scripts/progression-sim.mjs`, and `npm.cmd run build -- --configLoader native`. Then run `node scripts/progression-smoke.mjs`, `node scripts/workforce-smoke.mjs`, `node scripts/ui-smoke.mjs` and `node scripts/mountain-smoke.mjs`. Browser suites use installed Chrome with isolated profiles and built assets at 1280x800, 800x620 and 390x844. Reports and screenshots are under `test-results`; the canonical pacing report is `mountains-after.json`.
 
-Current verification: all 46 unit tests, pacing assertions, production build and four browser suites pass. Native Electron remains blocked by the runtime ACL error described below.
+Current verification: all 46 unit tests, pacing assertions, production build and four browser suites pass. Native release checks run on GitHub's Windows runner; the local runtime ACL limitation is described below.
 
 ## UI and purchase artwork update
 
@@ -169,8 +169,8 @@ Purchase feedback is emitted after the purchase is saved, once per bulk transact
 
 Validation: 46 unit tests, the production build (`npm.cmd run build -- --configLoader native`), progression/workforce smoke suites and `node scripts/ui-smoke.mjs` passed. The UI suite checks every loadable purchase image, transparency, six cosmetic previews, locked/unaffordable states, bulk milestones, Defiance activation/expiry, summit save/reload, prestige confirmation and offline summary. Desktop 1280x800, compact 800x620 and mobile 390x844 screenshots were inspected; large currency and equipment stages were included. The accompanying longer balance revision is measured separately in `docs/balance.md`; UI feedback does not grant rewards or modify purchase calculations.
 
-Native source Electron was attempted again on 2026-10-18 and remains unverified: `FATAL:electron\shell\browser\win\install_dir_access.cc:52` reports that `node_modules\electron\dist` has an AppContainer package SID ACL entry but lacks `ALL APPLICATION PACKAGES`, so Windows denies the sandbox token access. No permissions or sandbox settings were altered. Native window/audio listening and packaged executable checks remain manual follow-up; browser screenshots and automated audio scheduling checks do not establish those results. No new release artifacts were packaged or published.
+Local source Electron was attempted again on 2026-10-18 and remains unverified: `FATAL:electron\shell\browser\win\install_dir_access.cc:52` reports that `node_modules\electron\dist` has an AppContainer package SID ACL entry but lacks `ALL APPLICATION PACKAGES`, so Windows denies the sandbox token access. No permissions or sandbox settings were altered. The GitHub Windows runner independently validated the packaged executable and portable launcher for version 1.2.2. Manual audio listening and installation through the setup wizard remain unverified.
 
 ## Project Status
 
-Released: Windows version 1.1.0. The current source includes newer progression, artwork and mountain-balance changes that are not in the published executables. Run from source to use those changes.
+Released: Windows version 1.2.2, including progression, artwork and mountain-balance updates. Download the installer or portable executable from the release above. Updates are manual; existing installations do not auto-update.
