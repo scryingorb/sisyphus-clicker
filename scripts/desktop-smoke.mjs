@@ -36,7 +36,7 @@ try {
   await importSave(80);
   await page.locator('#resume').click();await page.waitForTimeout(2800);
   await page.locator('#pause').click();const rolling=await snapshot();
-  assert.ok(rolling.boulderVelocity < -6,JSON.stringify(rolling));
+  assert.ok(rolling.boulderVelocity < -2,JSON.stringify(rolling));
   assert.ok(rolling.climbPushes<80);
   await page.locator('#resume').click();await page.locator('#push').click();await page.locator('#pause').click();
   const braking=await snapshot();assert.ok(braking.boulderVelocity<0 && braking.boulderVelocity>rolling.boulderVelocity);

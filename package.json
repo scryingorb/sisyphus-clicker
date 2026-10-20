@@ -1,6 +1,6 @@
 {
   "name": "sisyphus-clicker",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "An atmospheric pixel-art game about an eternal ascent and a very heavy boulder.",
   "author": "archer266",
   "main": "desktop/main.cjs",

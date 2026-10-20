@@ -1,13 +1,14 @@
 import { chromium } from 'playwright';
 import { spawn } from 'node:child_process';
 import { createServer } from 'node:net';
-import { mkdir, mkdtemp, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, writeFile, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 
 await mkdir('test-results',{recursive:true});
 const profile=path.join(await mkdtemp(path.resolve('test-results/portable-')), 'new-user-data');
-const executable=path.resolve('release/Sisyphus-Clicker-Portable-1.1.0.exe');
+const {version}=JSON.parse(await readFile(new URL('../package.json',import.meta.url),'utf8'));
+const executable=path.resolve(`release/Sisyphus-Clicker-Portable-${version}.exe`);
 const server=createServer();await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 const port=server.address().port;await new Promise(resolve=>server.close(resolve));
 const env={...process.env,SISYPHUS_TEST_DATA:profile};delete env.ELECTRON_RUN_AS_NODE;
