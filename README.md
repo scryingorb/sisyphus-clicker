@@ -72,6 +72,8 @@ npm.cmd run build
 npm.cmd run preview
 ```
 
+GitHub Pages uses `.github/workflows/pages.yml` to build and deploy `dist` on pushes to `main`. In repository **Settings → Pages → Build and deployment**, select **GitHub Actions** as the source. The workflow sets `GITHUB_PAGES=true` for the `/sisyphus-clicker/` base path; ordinary and Electron builds retain relative asset paths.
+
 ## Usage
 
 Choose **Begin ascent**, then click the hill, press **PUSH**, or press **Space**. Pushes add momentum and charge Defiance. Inputs are limited to eight accepted pushes per second. Gravity, drag and signed velocity still communicate the stone's weight; falls only cost height.
