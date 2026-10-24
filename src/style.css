@@ -25,3 +25,49 @@ body.reduced-motion *{animation:none!important;transition:none!important}
 @media(max-width:720px){.mountain-goal{margin:10px 16px}.mountain-goal summary{min-height:44px}}
 
 .prestige-overview progress{width:100%;height:8px;accent-color:var(--gold,#d1b27a)}
+
+/* Live values supplement the existing Obol / ascent hierarchy. */
+.live-power{position:absolute;top:202px;left:26px;right:24px;display:flex;gap:18px;color:#9fafb3;font-size:8px;letter-spacing:.7px;pointer-events:none}
+.live-power span{display:flex;flex-direction:column;gap:3px}.live-power b{font-size:12px;letter-spacing:0;color:#e4d0a7;font-variant-numeric:tabular-nums}
+.scene-context{top:252px}.progress-track>div{transition:width 80ms linear}
+#lifetime-stats{margin-top:16px;border-top:1px solid #70604477;padding-top:12px;font-size:12px;color:#bcccca}#lifetime-stats summary{cursor:pointer;min-height:32px}#production-stats p{margin:8px 0;font-variant-numeric:tabular-nums}
+body:not(.reduced-motion) #obols[data-pulse-until]{animation:counter-pulse .65s ease-out}
+@keyframes counter-pulse{40%{color:#fff1bb;text-shadow:0 0 16px #e8bd6f80}}
+body.reduced-motion .progress-track>div{transition:none}
+@media(max-width:1050px){.live-power{left:18px;top:204px;gap:12px}.live-power b{font-size:11px}.scene-context{top:251px}}
+@media(max-width:720px){.live-power{top:196px;gap:16px}.scene-context{top:244px}}
+
+body:not(.reduced-motion) .live-power[data-pulse-until] b{animation:counter-pulse .65s ease-out}
+.defiance-block.charged{border-color:#d8c18b;box-shadow:inset 0 0 12px #b99b5520}
+body:not(.reduced-motion) .defiance-block[data-pulse-until]{animation:defiance-charge .35s ease-out}
+body:not(.reduced-motion) #income[data-pulse-until]{animation:counter-pulse .65s ease-out}
+@keyframes defiance-charge{40%{box-shadow:inset 0 0 18px #d1b87445}}
+#golden-boulder{position:absolute;left:24px;top:44%;z-index:3;display:flex;align-items:center;gap:8px;padding:8px 10px 8px 6px;max-width:190px;min-height:64px;border:1px solid #c7a75a;background:#1e231fef;color:#f0d58e;text-align:left;font-size:9px;letter-spacing:.6px;box-shadow:0 0 18px #d9ac3020;touch-action:manipulation}
+#golden-boulder[hidden],#golden-status[hidden]{display:none}
+.golden-stone{display:grid;place-items:center;flex:none;width:42px;height:42px;border-radius:40% 50% 43% 38%;background:linear-gradient(135deg,#fff0b5,#b78625 65%,#70501f);border:2px solid #f0d17f;color:#76551e;font-size:22px;text-shadow:1px 1px #f7e9ac;box-shadow:0 0 12px #d8af6455}
+#golden-boulder small{display:block;margin-top:5px;color:#c8c3ac;letter-spacing:0}
+body:not(.reduced-motion) #golden-boulder{animation:notice-arrive .22s ease-out,golden-glow 2s ease-in-out infinite}
+@keyframes golden-glow{50%{box-shadow:0 0 25px #e6bd5260;border-color:#fff1ba}}
+#golden-status{display:block;max-width:330px;margin-top:9px;color:#f3d697;font-size:10px;letter-spacing:0;line-height:1.5}
+.purchase-eta{display:block;color:#b5d9c8;font-size:11px;margin:5px 0}.worker-unit{display:block;color:#aabbbc;font-size:11px;margin-top:5px}
+#next-purchase{color:#cdb98e;line-height:1.5}.prestige-carry{padding:10px;border-left:2px solid #b99c68;background:#202d35}
+@media(max-width:720px){#golden-boulder{left:16px;font-size:8px;max-width:177px}.golden-stone{width:36px;height:36px}#golden-status{max-width:300px;font-size:9px}}
+.defiance-block progress::-webkit-progress-value{transition:width .15s ease-out}
+body.reduced-motion .defiance-block progress::-webkit-progress-value{transition:none}
+.relic-collection{margin:18px 0}.relic-collection>p{font-size:12px;color:#b9c6c5}.relic-heading{display:flex;align-items:center;gap:12px}.relic-icon{width:48px;height:48px;flex:none;shape-rendering:crispEdges;fill:#d7b778;background:#101b24;border:1px solid #6d6048;padding:4px}.relic-toll{fill:#a5d4cb}.relic-zeus{fill:#e8d58b}.relic-chronos{fill:#b8acd8}.relic-card>button{display:block;width:100%;margin-top:10px}.relic-card small{color:#aebdbd}
+#relic-status{display:block;margin-top:8px;max-width:320px;font-size:10px;letter-spacing:0;line-height:1.5;color:#cabbe1}
+#bonus-chain{margin:0 16px 10px;padding:10px 12px;border:1px solid #83bdc5;background:#142831;flex-shrink:0}#bonus-chain[hidden]{display:none}.chain-heading{display:flex;align-items:center;justify-content:space-between;gap:8px}#chain-close{padding:0;min-height:28px;width:28px;line-height:1;font-size:18px;background:transparent;border:0}#chain-value{display:block;font:600 20px 'Barlow Condensed',sans-serif;color:#b7e6e6}#chain-sources{display:block;font-size:10px;line-height:1.4;color:#b8c9ca;margin-top:4px}#bonus-chain[data-operation=add]{border-color:#d8b773}#bonus-chain[data-operation=add] #chain-value{color:#e7c689}#bonus-chain[data-operation=final] #chain-value{color:#fff0c3}
+body:not(.reduced-motion) #chain-value[data-beat="0"]{animation:chain-tap-a .18s ease-out}body:not(.reduced-motion) #chain-value[data-beat="1"]{animation:chain-tap-b .18s ease-out}@keyframes chain-tap-a{from{transform:translateY(3px);opacity:.6}to{transform:translateY(0);opacity:1}}@keyframes chain-tap-b{from{transform:translateY(3px);opacity:.6}to{transform:translateY(0);opacity:1}}
+body:not(.reduced-motion) .purchase-card[data-feedback-major]{animation:relic-spring .32s ease-out;transform-origin:center}@keyframes relic-spring{35%{transform:rotate(-.4deg) scale(1.012);background:#334a47}100%{transform:none}}
+@keyframes counter-pulse{40%{color:#fff1bb;text-shadow:0 0 16px #e8bd6f80;transform:translateY(-1px) scale(1.015)}}
+@media(max-width:720px){#relic-status{max-width:290px;font-size:9px}}
+#bonus-chain{position:absolute;z-index:4;left:16px;right:16px;bottom:146px;margin:0 auto;width:min(470px,calc(100% - 32px));padding:8px 10px;background:#12232bf5;border:1px solid #e7c483;box-shadow:0 4px 18px #0005;pointer-events:none}
+#chain-close{pointer-events:auto}#bonus-chain .eyebrow{font-size:13px;letter-spacing:2px;color:#ffe1a0}#chain-value{font-size:22px;line-height:1.15;margin-top:5px;font-variant-numeric:tabular-nums}.combo-caption{font-size:9px;color:#aebec5}
+#chain-sources{margin:0;font-size:12px}.combo-row{display:flex;align-items:center;gap:6px;min-height:27px;color:#c5e7e8}.combo-row[hidden]{display:none}.combo-icon{width:23px;text-align:center;flex:none;color:#e6ca91}.combo-source{flex:1;min-width:0;font-size:12px;line-height:1.15}.combo-source small{display:block;font-size:10px;color:#a5b9bc}.combo-row b{font-size:12px;white-space:nowrap;font-variant-numeric:tabular-nums}.combo-row[data-operation=add]{color:#f3cc8a}.combo-row[data-operation=base]{color:#b7c3c5}#bonus-chain .combo-source small{display:none}.combo-row[data-current]{background:#34565a66}
+#combo-details{margin:0 16px 12px;padding:10px;border:1px solid #53696b;background:#162731;font-size:12px}#combo-details summary{cursor:pointer;color:#e1c48d}#combo-live{max-height:330px;overflow:auto}#combo-live h3{font-size:18px;margin:14px 0 6px}#combo-live p{font-size:11px;color:#bccdcb}.relic-condition{color:#b8e2d6!important;font-size:12px}
+body:not(.reduced-motion) .combo-row[data-current] .combo-icon,body:not(.reduced-motion) .relic-card[data-feedback-pulse] .relic-icon{animation:combo-icon-pop .16s ease-out}body:not(.reduced-motion) #bonus-chain[data-operation=final]{animation:combo-impact .24s ease-out}
+@keyframes combo-icon-pop{45%{transform:scale(1.22);filter:drop-shadow(0 0 5px #eac77e)}}@keyframes combo-impact{40%{transform:scale(1.025);box-shadow:0 0 20px #e8c67b66}}
+@media(max-width:1050px){#bonus-chain{bottom:140px}.combo-source{font-size:11px}#chain-value{font-size:20px}}
+@media(max-width:720px){#bonus-chain{bottom:145px;left:8px;right:8px;width:calc(100% - 24px)}#combo-details{margin-top:10px}.combo-source{font-size:12px}}
+#game:has(#bonus-chain:not([hidden])) #golden-boulder{top:240px;left:auto;right:16px}
+#bonus-chain .combo-row[data-current]:not([data-operation=base]) .combo-source small{display:block;font-size:9px}

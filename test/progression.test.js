@@ -40,8 +40,8 @@ test('offline cap, repeated loads, clock rollback and failed commits',()=>{
   const timestamp=again.lastSeen;saveState(store,again,500);assert.equal(loadState(store).lastSeen,timestamp);
   const copy=structuredClone(again);assert.equal(settleAndSave(again,undefined,again.lastSeen+10000).failed,true);assert.deepEqual(again,copy);
 });
-test('coarse offline and live workers agree across environments within 1% earnings',()=>{
-  const a=newState();a.workers=[10,2,1,0];a.lastSeen=1000;const b=structuredClone(a);
+test('coarse offline and live workers agree within 1% without online-only Golden events',()=>{
+  const a=newState();a.goldenCooldown=601;a.workers=[10,2,1,0];a.lastSeen=1000;const b=structuredClone(a);
   const game=new GameSession(a);game.resume();for(let i=0;i<600*20;i++)game.tick(.05);
   settleOffline(b,601000);assert.ok(Math.abs(a.obols-b.obols)/a.obols<.01);assert.equal(a.runSummits,b.runSummits);
   assert.ok(a.runSummits>5);assert.ok(Number.isFinite(a.boulderVelocity));

@@ -1,0 +1,8 @@
+// Original, shared vector artifacts: no external artwork or emoji fallbacks.
+const art={
+  atlas:'<path fill="#86502e" d="M12 40V22l5-4V9l7-3 4 5V5l8-1 4 5v7l7-3 5 5v17L42 51H23Z"/><path fill="#df994c" d="M18 38V24l5-3V12l3-1v15h6V10h4v16l9-6 3 2v12L39 45H25Z"/><path fill="#ffe5a1" d="M24 12h3v13h-3zm9-2h3v15h-3zm-9 24h18v4H24Z"/><path fill="#74412e" d="m22 45 20-2-2 12H25Z"/><path fill="#ffd166" d="M24 46h17v4H24Z"/>',
+  toll:'<path fill="#6c488f" d="m32 3 22 13v30L32 59 10 46V16Z"/><path fill="#bba1cf" d="m32 7 18 11v26L32 55 14 44V18Z"/><path fill="#58416f" d="m32 13 13 8v20l-13 8-13-8V21Z"/><path fill="#e9d7a4" d="M21 33h23l-5 9H25Zm9-15h4v13h-4Z"/><path fill="#ffd166" d="m36 19 7 9h-7Z"/><path fill="#fff4df" d="m19 18 12-7v3l-9 6v9h-3Z"/>',
+  zeus:'<path fill="#305b72" d="m30 4 23 4-16 19h14L15 59l8-24H12Z"/><path fill="#55e6f2" d="M32 8h14L30 30h12L20 50l8-20H18Z"/><path fill="#fff4df" d="M32 8h6L25 27h-7Z"/><path fill="#ffd166" d="m32 31 10-1-22 20 8-12Z"/><path fill="#b5f6fa" d="m11 11 3 4-3 4-3-4Zm41 34 3 4-3 4-3-4Z"/>',
+  chronos:'<path fill="#b78955" d="M15 6h34v6h-4v10L35 32l10 10v10h4v6H15v-6h4V42l10-10-10-10V12h-4Z"/><path fill="#342844" d="M24 13h16v8l-8 9-8-9Zm8 21 8 10v7H24v-7Z"/><path fill="#a77bff" d="M25 20h14l-7 8Zm7 17 6 11H26Z"/><path fill="#55e6f2" d="M31 29h2v10h-2Z"/><path fill="#ffe3a0" d="M17 7h30v3H17Zm0 46h30v3H17Z"/><path fill="#cab6e7" d="M24 14h3v5h-3Zm0 30h2v6h-2Z"/>',
+};
+export function relicIcon(id){return `<svg viewBox="0 0 64 64" aria-hidden="true" class="relic-icon relic-${id}"><path fill="#181322" stroke="#79608d" d="M8 1h48l7 7v48l-7 7H8l-7-7V8Z"/>${art[id]??''}</svg>`;}

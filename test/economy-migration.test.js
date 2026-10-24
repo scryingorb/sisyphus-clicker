@@ -10,7 +10,7 @@ test('old unbought worker unlocks and all balances survive migration and repeate
     assert.deepEqual(s.workerUnlocks,expected);assert.equal(mountain(s).environment,run%5);
     for(const key of ['obols','favor','workers','tierUpgrades','divine','cosmetics','climbPushes','highWater'])assert.deepEqual(s[key],data[key]);
     let raw;const store={setItem:(_,v)=>raw=v,getItem:()=>raw};saveState(store,s,1000);
-    const again=loadState(store);assert.equal(again.schema,5);assert.deepEqual(again.workerUnlocks,expected);
+    const again=loadState(store);assert.equal(again.schema,7);assert.deepEqual(again.workerUnlocks,expected);
     for(let i=0;i<4;i++)if(expected[i])assert.notEqual(quote(again,'worker',i).cost,Infinity);
   }
 });

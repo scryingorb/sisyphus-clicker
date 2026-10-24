@@ -20,7 +20,7 @@ test('prestige requires 28 completed climbs each run; ordinary summits never res
 test('opening push moves visibly; one untrained Shade climbs from rest without clicks',()=>{
   const s=newState(),g=new GameSession(s);g.resume();g.push();
   for(let i=0;i<240;i++)advanceProgress(s,1/240);
-  assert.ok(s.climbPushes>1,'at least one percent visible movement after one second');
+  assert.ok(s.climbPushes>.75,'a single push visibly advances the introductory slope');
   const times=[];
   for(const count of [1,2]){
     const a=newState();a.workers[0]=count;let time=0;
@@ -29,12 +29,13 @@ test('opening push moves visibly; one untrained Shade climbs from rest without c
   }
   assert.ok(times[1]<times[0]*.6);
 });
-test('mountain distances and fixed-workforce climb difficulty increase across every transition',()=>{
+test('mountain base difficulty grows with a bounded, predictable later challenge cadence',()=>{
   let lastLength=0,lastWork=0;const environments=[];
   for(let n=0;n<60;n++){
     const m=mountain({...newState(),runSummits:n});
-    assert.ok(m.length>lastLength);assert.ok(m.length*m.resistance>lastWork);
-    lastLength=m.length;lastWork=m.length*m.resistance;if(n<5)environments.push(m.environment);
+    assert.ok(m.length/m.pace>lastLength);assert.ok(m.length/m.pace*m.resistance>lastWork);
+    assert.ok(m.pace>=.78&&m.pace<=1.15);
+    lastLength=m.length/m.pace;lastWork=m.length/m.pace*m.resistance;if(n<5)environments.push(m.environment);
   }
   assert.deepEqual(environments,[0,1,2,3,4]);assert.ok(mountain({...newState(),runSummits:1}).gravity<1.02);
 });

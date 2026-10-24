@@ -1,5 +1,7 @@
 # Mountain progression and prestige: measured balance
 
+> Updated tuning and measurements: [October 20 overhaul validation](overhaul-validation.md). The earlier measurements below describe the prior release.
+
 These are deterministic simulation estimates, not human playtesting. The responsive opening takes priority; the secondary first-prestige target is 2-4 hours. Updated 2026-10-18.
 
 ## Prestige is a run milestone

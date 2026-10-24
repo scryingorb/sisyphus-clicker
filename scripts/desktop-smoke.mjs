@@ -28,7 +28,7 @@ try {
   await launch();
   assert.equal(await page.locator('#pause-dialog').evaluate(d=>d.open),true);
   await page.locator('#resume').click();
-  await page.locator('#push').click();await page.waitForTimeout(150);await page.keyboard.press('Space');await page.waitForTimeout(150);await page.mouse.click(660,400);
+  await page.locator('#push').click();await page.waitForTimeout(150);await page.keyboard.press('Space');await page.waitForTimeout(150);await page.locator('#game').click({position:{x:100,y:250}});
   assert.equal(await page.locator('#total').textContent(),'3');
   await page.locator('#pause').click();const frozen=await snapshot();
   await page.waitForTimeout(650);assert.deepEqual(await snapshot(),frozen);

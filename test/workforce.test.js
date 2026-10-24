@@ -9,7 +9,7 @@ import { drawWorkforce, workforceLayout, WORKFORCE_BUDGET } from '../src/workfor
 test('one-way links add within a relationship and multiply tier training and milestones',()=>{
   const s=newState();s.workers=[10,20,10,6];s.tierUpgrades[0]=2;
   assert.equal(crossBonus(s,0),1.7);assert.equal(crossBonus(s,1),2.2);assert.equal(crossBonus(s,2),2);assert.equal(crossBonus(s,3),1);
-  assert.equal(workerPower(s,0),1.2*10*2*2*1.7);
+  assert.equal(workerPower(s,0),1.4*10*2*2*1.7);
   const engine=workerPower(s,3);s.workers[0]=1000;assert.equal(workerPower(s,3),engine);
 });
 test('Buy Max crossing all milestones and bulk cross-tier gains exactly match preview',()=>{
@@ -61,8 +61,8 @@ test('reduced motion removes all workforce animation and frozen scene time yield
     assert.ok(station.y+11*scene.scale<320); // Above mobile footer.
   }
 });
-test('all tiers, training and exhausted Defiance agree online and offline over multiple cycles',()=>{
-  const s=newState();s.workers=[50,25,10,5];s.tierUpgrades=[3,3,2,1];s.boost=12;s.defianceCooldown=60;s.lastSeen=1000;
+test('all tiers, training and exhausted Defiance agree online and offline without new Golden events over multiple cycles',()=>{
+  const s=newState();s.goldenCooldown=1201;s.workers=[50,25,10,5];s.tierUpgrades=[3,3,2,1];s.boost=12;s.defianceCooldown=60;s.lastSeen=1000;
   const offline=structuredClone(s),g=new GameSession(s);g.resume();for(let i=0;i<1200*20;i++)g.tick(.05);
   settleOffline(offline,1201000);assert.ok(Math.abs(s.obols-offline.obols)/s.obols<.01);assert.equal(s.runSummits,offline.runSummits);assert.equal(s.boost,0);assert.equal(offline.boost,0);assert.ok(s.runSummits>=10);
 });

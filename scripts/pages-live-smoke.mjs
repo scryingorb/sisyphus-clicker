@@ -1,6 +1,8 @@
 import { chromium, request } from 'playwright';
 import assert from 'node:assert/strict';
 import { mkdir } from 'node:fs/promises';
+import {newState} from '../src/state.js';
+import {spinMilestones} from '../src/casino-milestones.js';
 
 const url=process.env.LIVE_SITE_URL || 'https://scryingorb.github.io/sisyphus-clicker/';
 const expected=process.env.EXPECTED_REVISION;
@@ -42,7 +44,9 @@ try {
   await page.locator('#resume').click();
   await page.evaluate(()=>document.fonts.ready);
   assert.ok(await page.evaluate(()=>document.styleSheets.length>0));
-  assert.equal(await page.locator('body').evaluate(el=>getComputedStyle(el).display),'grid');
+  assert.equal(await page.locator('body').evaluate(el=>getComputedStyle(el).display),'block');
+  const scene=await page.locator('#scene').boundingBox();assert.equal(scene.width,1280);assert.equal(scene.height,800);
+  assert.equal(await page.locator('.reel-slot').count(),5);
   assert.ok(await page.locator('#scene').evaluate(canvas=>{
     const data=canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data;
     const colors=new Set();for(let i=0;i<data.length;i+=64)if(data[i+3])colors.add(`${data[i]},${data[i+1]},${data[i+2]}`);
@@ -56,6 +60,13 @@ try {
     await page.locator('#ledger-content img').evaluateAll(imgs=>Promise.all(imgs.map(img=>img.decode())));
   }
   await page.locator('[data-tab="workers"]').click();
+  const fixture={...newState(),schema:7,runSummits:3,completedClimbs:'3',totalPushes:'0',spins:50,climbPushes:0,highWater:0,goldenCooldown:240,spinClaims:spinMilestones().map(m=>m.id),settings:{muted:true,volume:0,reducedMotion:false}};
+  const seed=async()=>{await page.evaluate(s=>localStorage.setItem('sysyphus-clicker-v1',JSON.stringify(s)),fixture);await page.reload();await page.locator('#resume').click();};
+  await seed();await page.locator('#spin-ready').click();await page.waitForTimeout(200);assert.equal(await page.locator('#casino-push-impact').isVisible(),false);await page.locator('#reel-skip').click();await page.waitForFunction(()=>document.querySelector('#divine-reels').dataset.complete==='true');assert.equal(await page.locator('#casino-push-impact').isVisible(),true);
+  await seed();await page.evaluate(()=>{window.batchLabels=[];new MutationObserver(()=>{const t=document.querySelector('#reel-title').textContent;if(/^SPIN \d+ \/ 10$/.test(t)&&!window.batchLabels.includes(t))window.batchLabels.push(t);}).observe(document.querySelector('#reel-title'),{childList:true,subtree:true,characterData:true});});
+  await page.locator('#spin-batch').click();await page.waitForFunction(()=>document.querySelector('#divine-reels').dataset.complete==='true');
+  assert.equal((await page.evaluate(()=>window.batchLabels)).length,10);assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('sysyphus-clicker-v1')).activeSpins),10);
+  assert.match(await page.locator('#reel-calculation').textContent(),/10 SPINS SETTLED/);
   await mkdir('test-results',{recursive:true});
   await page.screenshot({path:'test-results/pages-live.png'});
   assert.deepEqual(errors,[]);assert.deepEqual(missing,[]);

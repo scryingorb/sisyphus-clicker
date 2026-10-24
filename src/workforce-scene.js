@@ -1,4 +1,35 @@
-import { equipmentStage } from './progression.js';
+import { equipmentStage, workerPower } from './progression.js';
+
+export function crewRepresentatives(s) {
+  return s.workers.flatMap((owned,tier)=>owned?Array.from({length:owned>=10?2:1},(_,slot)=>({tier,slot,stage:equipmentStage(owned)})):[]);
+}
+// Eight helpers at most, on a hauling ledge beside the main character.
+// Existing distant rigs remain visible as the equipment infrastructure.
+export function drawPushCrew(scene,time,rock,working) {
+  const z=scene.scale,c=scene.ctx;
+  const colors=['#a6d9d1','#c7a27b','#c49c60','#eaaa6a'];
+  for(const [index,helper] of crewRepresentatives(scene.state).entries()) {
+    const {tier,stage}=helper,age=time-(scene.arrivals?.get(tier)??-10);
+    const entrance=scene.reduced?1:Math.max(0,Math.min(1,age/1.1));
+    const effort=Math.min(10,3+Math.log2(1+workerPower(scene.state,tier))*.5);
+    const activity=working&&!scene.reduced?Math.sin(time*effort+index)*2:0;
+    const x=Math.max(12*z,rock.x-(32+(index%4)*13)*z)-(1-entrance)*45*z;
+    const y=rock.y+(26+Math.floor(index/4)*19)*z;
+    const color=colors[tier];
+    scene.rect(x-7*z,y+2*z,17*z,3*z,'#5c6559');
+    scene.rect(x-3*z,y-17*z,6*z,6*z,color);
+    scene.rect(x-5*z,y-11*z,7*z,8*z,tier===0?'#538c8c':tier===1?'#87775e':tier===2?'#80643d':'#955d3d');
+    scene.rect(x-5*z+activity*z,y-3*z,3*z,5*z,color);
+    scene.rect(x+2*z-activity*z,y-3*z,3*z,5*z,color);
+    scene.rect(x,y-10*z,10*z,2*z,color);
+    c.beginPath();c.strokeStyle='#9f9672';c.lineWidth=z;
+    c.moveTo(x+10*z,y-9*z);c.lineTo(rock.x+4*z,rock.y-7*z);c.stroke();
+    if(tier>=2||stage)scene.rect(x-5*z,y-19*z,9*z,3*z,stage===2?'#e4d498':color);
+    if(scene.state.workers[tier]>=50)scene.rect(x-5*z,y-9*z,7*z,2*z,'#dbd49c');
+    if(scene.state.workers[tier]>=100)scene.rect(x-3*z,y-22*z,5*z,2*z,'#fff0b4');
+    if(tier===3)scene.rect(x-3*z,y-8*z,3*z,3*z,'#ffd38b');
+  }
+}
 
 export const WORKFORCE_BUDGET = 4; // One representative per tier, never per owned worker.
 export function workforceLayout(scene) {
@@ -26,7 +57,8 @@ export function drawWorkforce(scene,portraits,time,rock,working) {
     line(top.x+10*z,top.y+3*z,rock.x+8*z,rock.y+3*z,i===0?'#739da1':'#6c6e54');
     // Original shop portraits retain their identities at every equipment stage.
     const portrait=portraits[i];
-    const bob=i===0?Math.round(Math.sin(phase*2)*z):0;
+    const comboLift=!scene.reduced&&scene.comboUntil>time?Math.sin(Math.min(1,(scene.comboUntil-time)/.55)*Math.PI)*3*z:0;
+    const bob=(i===0?Math.round(Math.sin(phase*2)*z):0)-comboLift;
     if(portrait?.complete&&portrait.naturalWidth) c.drawImage(portrait,Math.round(x-16*z),Math.round(y-size+bob),Math.round(size),Math.round(size));
     scene.rect(x+9*z,y-14*z,3*z,14*z,color);
     scene.rect(x+7*z,y-14*z,12*z,3*z,color);

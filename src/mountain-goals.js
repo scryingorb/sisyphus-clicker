@@ -17,9 +17,13 @@ export function mountainGoal(s){
     {title:'Gather 10 Restless Shades',value:s.workers[0],target:10,benefit:'Ownership doubles Shade output and unlocks the anchored rig.'},
     {title:'Recruit a Condemned Laborer',value:s.workers[1],target:1,benefit:'Access is unlocked; recruitment still costs Obols.'},
   ];
-  if(s.runSummits<5)return initial[s.runSummits];
+  if(s.runSummits<5&&initial[s.runSummits].value<initial[s.runSummits].target)return initial[s.runSummits];
   const tier=WORKERS.findLastIndex((_,i)=>workerUnlocked(s,i)),owned=s.workers[tier];
-  const target=[1,10,25,50,100].find(n=>n>owned)||100;
+  const target=[1,10,25,50,100].find(n=>n>owned);
+  if(s.runSummits<5||!target){
+    const checkpoint=[25,50,75,100].find(n=>n>s.highWater)||100;
+    return {title:s.isResetting?'Enjoy the summit':'Reach the next mountain checkpoint',value:Math.min(checkpoint,Math.floor(s.highWater)),target:checkpoint,benefit:`Reach ${checkpoint}% of the slope. Higher ground earns Obols; completed checkpoints are kept through rollback.`};
+  }
   return {title:`Gather ${target} ${WORKERS[tier].name}`,value:owned,target,benefit:target===1?'Recruit this tier to add its power.':'Ownership milestones double this tier; training and older crews also help.'};
 }
 export function rewardText(preview){

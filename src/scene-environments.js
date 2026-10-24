@@ -1,11 +1,11 @@
 // Original canvas pixel geometry: fixed seeds, bounded detail, no downloaded art.
 // These shapes stay behind the shared walking ridge so scenery cannot detach the crew.
 export const MATERIALS = [
-  ['#303832','#252e29','#202b27','#535143','#384038','#1e2925','#77705a','#a0936c'],
-  ['#493832','#332825','#261f24','#84604b','#594238','#292426','#97715a','#b68c68'],
-  ['#353747','#252735','#202230','#646479','#414459','#222432','#88859b','#aaa2b0'],
-  ['#425e68','#314752','#233a47','#8aaeb5','#557782','#29434f','#a3c6ce','#d1e4de'],
-  ['#444054','#302e43','#25263a','#827a92','#555068','#2b2b40','#a198b3','#c1b5ca'],
+  ['#36403f','#292e36','#252836','#6c6554','#414e4b','#202933','#af9771','#dfc58b'],
+  ['#563b3d','#3c2933','#2c2030','#ac6e4a','#6b4442','#302431','#d98d59','#ffd18b'],
+  ['#413751','#2c2840','#252239','#847098','#51475f','#28243a','#ac8ebd','#d0b0e6'],
+  ['#426471','#314b5e','#243b50','#8fbfc8','#567f8d','#2a4659','#a5dae4','#d7f0e8'],
+  ['#514264','#382e4b','#2c263f','#9984b3','#665578','#302a45','#b8a0d5','#e4c9f2'],
 ];
 export function drawBackdrop(scene,environment,time){
   const {w,h,scale:s,ctx:c}=scene;
