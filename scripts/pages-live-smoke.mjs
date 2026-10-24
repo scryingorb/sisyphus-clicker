@@ -36,7 +36,7 @@ try {
   browser=await chromium.launch({headless:true,...(process.env.PLAYWRIGHT_CHANNEL?{channel:process.env.PLAYWRIGHT_CHANNEL}:{})});
   const page=await browser.newPage({viewport:{width:1280,height:800}});
   const errors=[],missing=[];
-  page.on('pageerror',e=>errors.push(e.message));
+  page.on('pageerror',e=>{errors.push(e.message);console.error('Runtime:',e.message);});
   page.on('response',r=>{if(r.status()>=400)missing.push(`${r.status()} ${r.url()}`);});
   page.on('requestfailed',r=>missing.push(`${r.url()} ${r.failure()?.errorText}`));
   await page.goto(url,{waitUntil:'networkidle'});
@@ -61,10 +61,11 @@ try {
   }
   await page.locator('[data-tab="workers"]').click();
   const fixture={...newState(),schema:7,runSummits:3,completedClimbs:'3',totalPushes:'0',spins:50,climbPushes:0,highWater:0,goldenCooldown:240,spinClaims:spinMilestones().map(m=>m.id),settings:{muted:true,volume:0,reducedMotion:false}};
-  const seed=async()=>{await page.evaluate(s=>localStorage.setItem('sysyphus-clicker-v1',JSON.stringify(s)),fixture);await page.reload();await page.locator('#resume').click();};
-  await seed();await page.locator('#spin-ready').click();await page.waitForTimeout(200);assert.equal(await page.locator('#casino-push-impact').isVisible(),false);await page.locator('#reel-skip').click();await page.waitForFunction(()=>document.querySelector('#divine-reels').dataset.complete==='true');assert.equal(await page.locator('#casino-push-impact').isVisible(),true);
+  await page.addInitScript(()=>{if(window.name.startsWith('release-fixture:')){localStorage.setItem('sysyphus-clicker-v1',window.name.slice(16));window.name='';}});
+  const seed=async()=>{await page.evaluate(s=>{window.name='release-fixture:'+JSON.stringify(s);},fixture);await page.reload();await page.locator('#resume').click();};
+  await seed();await page.locator('#spin-ready').click();await page.waitForTimeout(200);assert.equal(await page.locator('#casino-push-impact').isVisible(),false);await page.locator('#divine-reels[data-complete="true"]').waitFor({state:'visible'});assert.equal(await page.locator('#casino-push-impact').isVisible(),true);
   await seed();await page.evaluate(()=>{window.batchLabels=[];new MutationObserver(()=>{const t=document.querySelector('#reel-title').textContent;if(/^SPIN \d+ \/ 10$/.test(t)&&!window.batchLabels.includes(t))window.batchLabels.push(t);}).observe(document.querySelector('#reel-title'),{childList:true,subtree:true,characterData:true});});
-  await page.locator('#spin-batch').click();await page.waitForFunction(()=>document.querySelector('#divine-reels').dataset.complete==='true');
+  await page.locator('#spin-batch').click();await page.locator('#divine-reels[data-complete="true"]').waitFor({state:'visible'});
   assert.equal((await page.evaluate(()=>window.batchLabels)).length,10);assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('sysyphus-clicker-v1')).activeSpins),10);
   assert.match(await page.locator('#reel-calculation').textContent(),/10 SPINS SETTLED/);
   await mkdir('test-results',{recursive:true});
